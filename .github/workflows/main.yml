@@ -31,7 +31,7 @@ jobs:
         run: nuget restore CaseStudySeleniumWebscraper.sln
 
       - name: Build and Publish
-        run: msbuild.exe CaseStudySeleniumWebscraper.sln /p:platform="Any CPU" /p:configuration="Release" /p:OutDir="./_build/"
+        run: msbuild.exe CaseStudySeleniumWebscraper.sln /p:platform="Any CPU" /p:configuration="Release" /p:OutDir="./CaseStudySeleniumWebscraper/_build/"
 
       - name: List directory contents
         run: ls -R
@@ -46,4 +46,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: app-artifacts
-          path: "./_build"
+          path: "./CaseStudySeleniumWebscraper/_build"
