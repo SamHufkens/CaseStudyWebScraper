@@ -1,0 +1,31 @@
+# Ignore Visual Studio files
+.vscode/
+.vs/
+
+packages/
+
+# Ignore user-specific files and settings
+*.suo
+*.user
+*.sln.docstates
+suo
+*.userprefs
+*.sln.docstates
+*.user
+
+# Ignore ReSharper files
+_ReSharper/
+*.sln.iml
+
+# Ignore build and debug logs
+*.log
+*.log.*
+
+# Ignore Visual Studio temporary files
+*.VS.*.*
+
+# Ignore project-specific files (modify these as needed)
+MyConsoleApp/appsettings.json
+
+# Ignore your personal configuration files (modify these as needed)
+*.env
