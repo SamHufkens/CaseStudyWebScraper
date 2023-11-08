@@ -20,12 +20,18 @@ jobs:
         uses: Nuget/setup-nuget@v1
         with:
           nuget-version: '5.x'
+          
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
+        
+      - name: Create Build Directory
+        run: mkdir _build
 
       - name: Restore Nuget packages
         run: nuget restore CaseStudySeleniumWebscraper.sln
 
       - name: Build and Publish
-        run: msbuild CaseStudySeleniumWebscraper.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishUrl=${env:GITHUB_WORKSPACE}/output
+        run: msbuild.exe CaseStudySeleniumWebscraper.sln /p:platform="Any CPU" /p:configuration="Release"
 
   artifacts:
     runs-on: windows-latest # or windows-2022 or windows-2019
@@ -37,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: app-artifacts
-          path: ${env:GITHUB_WORKSPACE}/output
+          path: "./_build"
