@@ -1,0 +1,46 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest # or windows-2022 or windows-2019
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
+
+      - name: Setup Nuget
+        uses: Nuget/setup-nuget@v1
+        with:
+          nuget-version: '5.x'
+          
+      - name: Navigate to Workspace
+        run: cd $GITHUB_WORKSPACE
+        
+      - name: Create Build Directory
+        run: mkdir _build
+
+      - name: Restore Nuget packages
+        run: nuget restore CaseStudySeleniumWebscraper.sln
+
+      - name: Build and Publish
+        run: msbuild.exe CaseStudySeleniumWebscraper.sln /p:platform="Any CPU" /p:configuration="Release"
+
+  artifacts:
+    runs-on: windows-latest # or windows-2022 or windows-2019
+
+    needs: build
+
+    steps:
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-artifacts
+          path: "./_build"
