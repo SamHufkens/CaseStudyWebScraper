@@ -35,9 +35,12 @@ namespace CaseStudySeleniumWebscraper
                     string searchTerm = Console.ReadLine();
                     Console.WriteLine("Enter a filename:");
                     string filename = Console.ReadLine();
+                    Console.WriteLine("Choose an output format (JSON or CSV):");
+                    string format = Console.ReadLine();
 
                     List<Dictionary<string, string>> collections = scraper.ScrapeYouTubeSearchResults(searchTerm, numOfResults);
-                    StoreData(scraper, filename, collections);
+                    
+                    StoreData(scraper, filename, collections, format);
                 }
                 else if (optionChose == "2")
                 {
@@ -45,9 +48,12 @@ namespace CaseStudySeleniumWebscraper
                     string searchTerm = Console.ReadLine();
                     Console.WriteLine("Enter a filename:");
                     string filename = Console.ReadLine();
+                    Console.WriteLine("Choose an output format (JSON or CSV):");
+                    string format = Console.ReadLine();
 
                     List<Dictionary<string, string>> collections = scraper.ScrapeJobSite(searchTerm, numOfResults);
-                    StoreData(scraper, filename, collections);
+
+                    StoreData(scraper, filename, collections, format);
                 }
                 else if (optionChose == "3")
                 {
@@ -57,9 +63,12 @@ namespace CaseStudySeleniumWebscraper
                     string categoryInput = Console.ReadLine();
                     Console.WriteLine("Enter a filename:");
                     string filename = Console.ReadLine();
+                    Console.WriteLine("Choose an output format (JSON or CSV):");
+                    string format = Console.ReadLine();
 
                     List<Dictionary<string, string>> allData = scraper.ScrapeFormula1(yearInput, categoryInput);
-                    StoreData(scraper, filename, allData);
+                    
+                    StoreData(scraper, filename, allData, format);
                 }
                 else if (optionChose == "4")
                 {
@@ -75,21 +84,34 @@ namespace CaseStudySeleniumWebscraper
             }
         }
 
-        static void StoreData(WebScraper scraper, string filename, List<Dictionary<string, string>> data)
+        static void StoreData(WebScraper scraper, string filename, List<Dictionary<string, string>> data, string format)
         {
             if (string.IsNullOrWhiteSpace(filename))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Invalid filename. Data will not be written to JSON and CSV.");
+                Console.WriteLine("Invalid filename. Data will not be written to JSON or CSV.");
                 Console.ResetColor();
+                return;
             }
             else if (data.Count > 0)
             {
-                scraper.StoreDataInJSON($"{filename}.json", data);
-                scraper.StoreDataInCSV($"{filename}.csv", data);
-                
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Data has been successfully written to CSV and JSON files.");
+                if (format.ToLower() == "json")
+                {
+                    scraper.StoreDataInJSON($"{filename}.json", data);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Data has been successfully written to a JSON file.");
+                }
+                else if (format.ToLower() == "csv")
+                {
+                    scraper.StoreDataInCSV($"{filename}.csv", data);
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Data has been successfully written to a CSV file.");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid format chosen. Data will not be written.");
+                }
                 Console.ResetColor();
             }
             else

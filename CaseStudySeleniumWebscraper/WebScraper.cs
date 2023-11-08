@@ -7,6 +7,7 @@ using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
 using System.Net.Http;
+using System.Text;
 
 namespace CaseStudySeleniumWebscraper
 {
@@ -186,7 +187,6 @@ namespace CaseStudySeleniumWebscraper
                 return new List<Dictionary<string, string>>();
             }
         }
-
 
 
         public void StoreDataInCSV(string filename, List<Dictionary<string, string>> allData)
