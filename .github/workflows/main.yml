@@ -35,15 +35,4 @@ jobs:
 
       - name: List directory contents
         run: ls -R
-        
-  artifacts:
-    runs-on: windows-latest # or windows-2022 or windows-2019
-
-    needs: build
-
-    steps:
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: app-artifacts
-          path: "./CaseStudySeleniumWebscraper/_build"
+    
