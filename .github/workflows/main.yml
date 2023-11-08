@@ -13,16 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 4.7.2
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: msbuild -p:Configuration=Release
 
       - name: Publish
-        run: dotnet publish --configuration Release --output publish
+        run: msbuild -t:Publish -p:Configuration=Release -p:PublishDir=publish
 
   artifacts:
     runs-on: windows-latest # or windows-2022 or windows-2019
