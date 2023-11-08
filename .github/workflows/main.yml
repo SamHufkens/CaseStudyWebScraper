@@ -20,12 +20,6 @@ jobs:
         uses: Nuget/setup-nuget@v1
         with:
           nuget-version: '5.x'
-          
-      - name: Navigate to Workspace
-        run: cd $GITHUB_WORKSPACE
-        
-      - name: Create Build Directory
-        run: mkdir _build
 
       - name: Restore Nuget packages
         run: nuget restore CaseStudySeleniumWebscraper.sln
@@ -36,9 +30,9 @@ jobs:
       - name: List directory contents
         run: ls -R
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: webscraper-artifact
-          path: ./CaseStudySeleniumWebscraper/_build/
+      #- name: Upload artifact
+        #uses: actions/upload-artifact@v3
+        #with:
+          #name: webscraper-artifact
+          #path: ./CaseStudySeleniumWebscraper/_build/
     
