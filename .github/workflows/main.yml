@@ -35,4 +35,10 @@ jobs:
 
       - name: List directory contents
         run: ls -R
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: webscraper-artifact
+          path: ./CaseStudySeleniumWebscraper/_build/
     
