@@ -24,8 +24,8 @@ jobs:
       - name: Restore Nuget packages
         run: nuget restore CaseStudySeleniumWebscraper.sln
 
-      - name: Build
-        run: msbuild CaseStudySeleniumWebscraper.sln /p:Configuration=Release
+      - name: Build and Publish
+        run: msbuild CaseStudySeleniumWebscraper.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishUrl=$(Build.ArtifactStagingDirectory)
 
   artifacts:
     runs-on: windows-latest # or windows-2022 or windows-2019
@@ -37,4 +37,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: app-artifacts
-          path: publish
+          path: $(Build.ArtifactStagingDirectory)
