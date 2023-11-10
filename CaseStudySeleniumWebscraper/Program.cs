@@ -97,9 +97,28 @@ namespace CaseStudySeleniumWebscraper
                     Console.WriteLine("Choose an output format (JSON or CSV):");
                     string format = Console.ReadLine();
 
-                    // Scrape method om f1 data te scrapen
-                    List<Dictionary<string, string>> allData = scraper.ScrapeFormula1(yearInput, categoryInput);
-                    
+                    // Split de ingevoerde jaren op basis van komma's en sla ze op in een array.
+                    string[] years = yearInput.Split(',');
+
+                    // Split de ingevoerde categorieën op basis van komma's en sla ze op in een array.
+                    string[] categories = categoryInput.Split(',');
+
+                    // Lijst om alle verzamelde gegevens op te slaan.
+                    List<Dictionary<string, string>> allData = new List<Dictionary<string, string>>();
+
+                    // Itereer over elke combinatie van jaar en categorie.
+                    foreach (var year in years)
+                    {
+                        foreach (var category in categories)
+                        {
+                            // Scrape-methode om Formula 1-gegevens te verzamelen.
+                            List<Dictionary<string, string>> data = scraper.ScrapeFormula1(year.Trim(), category.Trim());
+
+                            // Voeg de verzamelde gegevens toe aan de totale lijst.
+                            allData.AddRange(data);
+                        }
+                    }
+
                     // De data wordt opgeslaan
                     StoreData(scraper, filename, allData, format);
                 }
