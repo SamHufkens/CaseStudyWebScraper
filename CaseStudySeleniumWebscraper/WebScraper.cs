@@ -56,14 +56,14 @@ namespace CaseStudySeleniumWebscraper
                     string title = collection.FindElement(By.Id("video-title")).Text;
                     string url = collection.FindElement(By.Id("video-title")).GetAttribute("href");
                     string views = collection.FindElement(By.XPath(".//*[@id='metadata-line']/span[1]")).Text;
-                    string uploader = collection.FindElement(By.XPath("//*[@id='channel-name']")).Text; 
+                    string thumbnail = collection.FindElement(By.XPath("//*[@id='thumbnail']/yt-image/img")).GetAttribute("src");
 
                     Dictionary<string, string> elementMap = new Dictionary<string, string>
                     {
                         { "Video Title", title },
-                        { "URL", url },
                         { "Views", views },
-                        { "Uploader", uploader }
+                        { "Thumbnail", thumbnail },
+                        { "URL", url },
                     };
 
                     allData.Add(elementMap);
