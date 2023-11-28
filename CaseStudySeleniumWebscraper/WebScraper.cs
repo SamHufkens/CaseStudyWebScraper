@@ -47,7 +47,7 @@ namespace CaseStudySeleniumWebscraper
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("No data found.");
-                    Console.ResetColor();
+                    Console.ResetColor(); 
                 }
 
                 // Loop over de resultaten, en haal de nodige info eruit
@@ -56,7 +56,7 @@ namespace CaseStudySeleniumWebscraper
                     string title = collection.FindElement(By.Id("video-title")).Text;
                     string url = collection.FindElement(By.Id("video-title")).GetAttribute("href");
                     string views = collection.FindElement(By.XPath(".//*[@id='metadata-line']/span[1]")).Text;
-                    string uploader = collection.FindElement(By.CssSelector("#text a")).Text;
+                    string uploader = collection.FindElement(By.XPath("//*[@id='channel-name']")).Text; 
 
                     Dictionary<string, string> elementMap = new Dictionary<string, string>
                     {
